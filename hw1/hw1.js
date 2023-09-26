@@ -42,15 +42,20 @@ const Homework1 = class Homework1 {
  * https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Math
  */
 
-const Circle = class Circle { 
-    constructor(radius, color){
-        this.radius = radius;
-        this.color = color;
-    } 
+const Circle = class Circle {   
+        //Below we have used a constructor for class Circle
+    constructor(radius, color) { 
 
+        this.radius = radius;
+        this.color = color; 
+
+    } 
+        //Below is the calcArea method used to calculate area of the circle
     calcArea(){
-        return this.radius * this.radius * Math.PI;
+
+        return this.radius * this.radius * Math.PI; //This will return the area value
     }
+
 }
 
 
@@ -73,14 +78,21 @@ const Circle = class Circle {
  */
 
 const Student = class Student { 
-    constructor(firstName, lastName, gpa, degreeType){
+
+    //Below are the default values
+    grade = undefined;
+    graduated = false;
+
+    //Below we have used a constructor for Student class
+    constructor(firstName, lastName, gpa, degreeType) {
+
         this.firstName = firstName;
         this.lastName = lastName;
         this.gpa = gpa;
         this.degreeType = degreeType;
-        this.grade = undefined;
-        this.graduated = false;
+        
     }
+
 }
 
 
@@ -98,11 +110,16 @@ const Student = class Student {
  */
 
 const Product = class Product {
-    constructor(product){
-        var productArry = product.split(",");
-        this.name = productArry[0];
-        this.price = Number(productArry[1]);
-        this.availability = productArry[2];
+
+    //Below we have used a constructor for Product class
+    constructor(prod){
+
+        const strArray = prod.split(",");
+
+        this.name = strArray[0];
+        this.price = Number(strArray[1]);
+        this.availability = strArray[2];
+
     }
 
     /**
@@ -130,7 +147,13 @@ const Product = class Product {
      * This method can also be written in one line; if doing so, consider using String interpolation when calling the product constructor
      * Reference: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array 
      */
-    static halfOff = (products) => products.map(elements => {return new Product(elements.name+","+  elements.price*0.5 +"," +elements.availability )});
+    static halfOff = (products) => {  
+
+        const halfarray = products.map((element)=> new Product(element.name+','+parseFloat( element.price * 0.5)+','+element.availability));
+
+        return halfarray;
+
+    }
 
     /**
      * *****************
@@ -145,7 +168,17 @@ const Product = class Product {
      * Reference: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array 
      * Reference: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Intl/NumberFormat (currency formatting)
      */
-    static printProducts = (products) => products.forEach(element => console.log(`Product: ${element.name}, Cost: ${new Intl.NumberFormat('en-US',{ style: 'currency', currency: 'USD' }).format(element.price)}, Availability: ${element.availability === "In Stock" ? "Yes" : "No"}`));
+    static printProducts = (products) => {
+        products.forEach(element => {
+
+            const availability = element.availability === "In Stock" ? "Yes" : "No";
+            const price = new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' }).format(element.price);
+
+            console.log(`Product: ${element.name}, Cost: ${price}, Availability: ${availability}`);
+
+        });
+    }
+    
 
  };
 
